@@ -1,8 +1,11 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Student;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 @Service
@@ -21,11 +24,24 @@ public class StudentService {
     }
 
     public Student editStudent(Student student) {
-        studentMap.put(student.getId(), student);
-        return student;
+        if (studentMap.containsKey(student.getId())) {
+            studentMap.put(student.getId(), student);
+            return student;
+        }
+        return null;
     }
 
     public Student deleteStudent(Long id) {
         return studentMap.remove(id);
+    }
+
+    public Collection<Student> findByAge(int age) {
+        ArrayList<Student> temp = new ArrayList<>();
+        for (Student student : studentMap.values()) {
+            if (student.getAge() == age) {
+                temp.add(student);
+            }
+        }
+        return temp;
     }
 }

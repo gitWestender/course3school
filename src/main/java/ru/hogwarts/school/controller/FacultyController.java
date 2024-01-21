@@ -10,7 +10,7 @@ import ru.hogwarts.school.service.FacultyService;
 import java.util.Collection;
 
 @RestController
-@RequestMapping ("/faculty")
+@RequestMapping("/faculty")
 public class FacultyController {
 
     private final FacultyService facultyService;
@@ -48,7 +48,7 @@ public class FacultyController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Faculty>> findFaculties (@RequestParam String color) {
+    public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String color) {
         if (color != null && !color.isBlank()) {
             return ResponseEntity.ok(facultyService.findByColor(color));
         }
